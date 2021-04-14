@@ -1,0 +1,64 @@
+{
+  "sections": [
+    {
+      "id": 1,
+      "name": "demir",
+      "tasks": [
+        {
+          "id": "d473734a-5cd6-4d87-bcd4-20028586ca46",
+          "name": "mert demirdasdasdas",
+          "backgroundColor": "#FFE9CC",
+          "date": "24 Şub"
+        },
+        {
+          "id": "3b615799-6baf-4afb-84b6-8d1778bb3c86",
+          "name": "New Task 12312312",
+          "backgroundColor": "#E9CFCF",
+          "date": "24 Şub"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Section 2",
+      "tasks": [
+        {
+          "id": 2,
+          "name": "Deneme Task 2",
+          "backgroundColor": "#CCDAD9",
+          "date": "2 Mar"
+        }
+      ]
+    },
+    {
+      "name": "New Section 3",
+      "tasks": [
+        {
+          "id": "e6546d87-e2c8-411d-98d2-d04f82383f12",
+          "name": "New mert",
+          "backgroundColor": "#EBEBEB",
+          "date": "24 Şub"
+        },
+        {
+          "id": "d473734a-5cd6-4d87-bcd4-20028586ca46",
+          "name": "mert demirrr",
+          "backgroundColor": "#FFE9CC",
+          "date": "24 Şub"
+        },
+        {
+          "id": "07989fba-53b8-46b3-b202-ca94c1c7d1a4",
+          "name": "New Task",
+          "backgroundColor": "#E9CFCF",
+          "date": "14 Apr 2021"
+        },
+        {
+          "id": "e826c67e-a923-450d-bc47-a338b4e8330e",
+          "name": "New Task asdasdas",
+          "backgroundColor": "#E9CFCF",
+          "date": "14 Apr"
+        }
+      ],
+      "id": 3
+    }
+  ]
+}

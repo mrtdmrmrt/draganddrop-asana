@@ -1,0 +1,197 @@
+.home__container {
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    width: 100%;
+    background-color: #F7F7F7;
+}
+
+.sections__wrapper {
+    width: 300px;
+    height: 100vh;
+    margin-left: 1rem;
+
+    &--header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 0;
+        color: #6E6E6E;
+
+        & i {
+            font-size: .75rem !important;
+            cursor: pointer;
+        }
+
+        &-title {
+            width: 70%;
+
+            &>input {
+                width: -webkit-fill-available !important;
+                border: 1px solid transparent;
+                padding: 8px 4px;
+                background-color: transparent;
+
+                &:focus {
+                    outline: none;
+                    border: 1px solid #9B9B9B;
+                    border-radius: 6px;
+                }
+            }
+        }
+    }
+
+    &--task {
+        height: calc(100vh - 80px);
+        border-radius: 8px;
+        background-image: linear-gradient(#E7ECF0, #F3F5F8);
+
+        &-add {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 30px;
+            color: #9B9B9B;
+
+            &>div {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+
+                &>i {
+                    font-size: .75rem !important;
+                    margin-right: .5rem;
+                }
+            }
+        }
+    }
+}
+
+.card__wrapper {
+    width: 100%;
+    min-height: 90px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    cursor: pointer;
+    position: relative;
+
+    &--header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: inherit;
+
+        &-color {
+            width: 50px;
+            height: 8px;
+            border-radius: 8px;
+            background-color: blue;
+        }
+
+        &-icons {
+            font-size: 1rem;
+            color: #6E6E6E;
+
+            & i {
+                cursor: pointer;
+            }
+        }
+    }
+
+    &--body {
+        margin-top: .75rem;
+        font-size: .85rem;
+        color: #9B9B9B;
+        font-weight: 600;
+
+        &>input {
+            width: -webkit-fill-available !important;
+            border: 1px solid transparent;
+            padding: 6px 4px;
+            background-color: transparent;
+
+            &:focus {
+                outline: none;
+                border: 1px solid #9B9B9B;
+                border-radius: 6px;
+            }
+        }
+    }
+
+    &--footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        margin-top: .75rem;
+
+        &-date {
+            font-size: .65rem;
+            font-weight: 600;
+            color: #6E6E6E;
+        }
+
+        &-icons {
+            font-size: .65rem;
+            color: #6E6E6E;
+        }
+    }
+
+    &--popup-detail {
+        border: 1px solid #CCDAD9;
+        border-radius: 6px;
+        width: 155px;
+        height: 45px;
+        position: absolute;
+        z-index: 100;
+        right: 6px;
+        top: 25px;
+        padding: 6px;
+
+        &--colors {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+
+            &-title {
+                font-size: .65rem;
+                font-weight: 600;
+                margin-right: 4px;
+            }
+
+            &-color {
+                margin-right: 4px;
+                cursor: pointer;
+            }
+        }
+
+        &--delete {
+            margin-top: .5rem;
+            font-size: .65rem;
+            color: #A74141;
+            cursor: pointer;
+        }
+    }
+}
+
+.draggable {
+    height: 100%
+}
+
+.add-sections__wrapper {
+    margin-left: 2rem;
+    padding: 1rem 0;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    color: #6E6E6E;
+    cursor: pointer;
+
+    &>i {
+        font-size: .75rem;
+    }
+}
