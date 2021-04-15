@@ -116,30 +116,30 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable';
-import { asanaService } from './services';
-import { v4 as uuidv4 } from 'uuid';
+import draggable from "vuedraggable";
+import { asanaService } from "./services";
+import { v4 as uuidv4 } from "uuid";
 export default {
-  name: 'App',
+  name: "App",
   components: {
     draggable,
   },
   data() {
     return {
-      newTask: '',
+      newTask: "",
       sections: [],
       colors: [
-        '#DBE9F9',
-        '#D1D9E3',
-        '#CCDAD9',
-        '#FFE9CC',
-        '#E9CFCF',
-        '#CCCCCC',
-        '#EBEBEB',
+        "#DBE9F9",
+        "#D1D9E3",
+        "#CCDAD9",
+        "#FFE9CC",
+        "#E9CFCF",
+        "#CCCCCC",
+        "#EBEBEB",
       ],
       isPopupCardDetail: false,
       tmpTaskId: null,
-      changeSelection: '',
+      changeSelection: "",
     };
   },
   computed: {
@@ -161,7 +161,7 @@ export default {
   methods: {
     join(t, a, s) {
       function format(m) {
-        let f = new Intl.DateTimeFormat('en', m);
+        let f = new Intl.DateTimeFormat("en", m);
         return f.format(t);
       }
       return a.map(format).join(s);
@@ -169,18 +169,18 @@ export default {
     addSelection() {
       //this.sections.push({ id: 4, name: 'Section 4', tasks: [] });
       asanaService
-        .fetchSectionAdd('New Section')
+        .addSection("New Section")
         .then((res) => {
-          console.log('new section=>', res);
+          console.log("new section=>", res);
         })
         .catch(() => {});
     },
     removeSelection(id) {
       //this.sections.splice(index, 1);
       asanaService
-        .fetchSectionDelete(id)
+        .remove(id)
         .then((res) => {
-          console.log('delete section=>', res);
+          console.log("delete section=>", res);
         })
         .catch(() => {});
     },
@@ -196,14 +196,14 @@ export default {
       //     });
       //   });
       let tmpTask = [];
-      let format = [{ day: 'numeric' }, { month: 'short' }];
-      let newDate = this.join(new Date(), format, ' ');
+      let format = [{ day: "numeric" }, { month: "short" }];
+      let newDate = this.join(new Date(), format, " ");
       if (tasks && tasks.length != 0) {
         tmpTask = [
           {
             id: uuidv4(),
-            name: 'New Task',
-            backgroundColor: '#E9CFCF',
+            name: "New Task",
+            backgroundColor: "#E9CFCF",
             date: newDate,
           },
           ...tasks,
@@ -212,27 +212,20 @@ export default {
         tmpTask = [
           {
             id: uuidv4(),
-            name: 'New Task',
-            backgroundColor: '#E9CFCF',
+            name: "New Task",
+            backgroundColor: "#E9CFCF",
             date: newDate,
           },
         ];
       }
       asanaService
-        .fetchSectionTaskAdd(id, tmpTask)
+        .update(id, tmpTask)
         .then((res) => {
-          console.log('change task=>', res);
+          console.log("change task=>", res);
         })
         .catch(() => {});
     },
     changeColor(sId, tasks, tId, color) {
-      // this.sections.forEach((section) => {
-      //   section.tasks.forEach((task) => {
-      //     if (task.id == id) {
-      //       task.backgroundColor = color;
-      //     }
-      //   });
-      // });
       let tmpTasks = [];
       tasks.forEach((task) => {
         if (task.id == tId) {
@@ -244,7 +237,7 @@ export default {
       asanaService
         .fetchSectionTaskUpdate(sId, tmpTasks)
         .then((res) => {
-          console.log('change task=>', res);
+          console.log("change task=>", res);
         })
         .catch(() => {});
     },
@@ -254,7 +247,7 @@ export default {
     },
     getAsanaSection() {
       asanaService
-        .fetchSectionList()
+        .list()
         .then((res) => {
           this.sections = res;
         })
@@ -262,38 +255,41 @@ export default {
     },
     changeSectionName(id, name) {
       asanaService
-        .fetchSectionNameUpdate(id, name)
+        .updateCaption(id, name)
         .then((res) => {
-          console.log('change section name=>', res);
+          console.log("change section name=>", res);
         })
         .catch(() => {});
     },
+
     changeTaskName(id, tasks) {
       asanaService
-        .fetchTaskNameUpdate(id, tasks)
+        .update(id, tasks)
         .then((res) => {
-          console.log('change task name=>', res);
+          console.log("change task name=>", res);
         })
         .catch(() => {});
     },
+
     changeSectionTask() {
       this.changeSelection.forEach((section) => {
         asanaService
-          .fetchSectionTaskUpdate(section.id, section.tasks)
+          .updateCaption(section.id, section.tasks)
           .then((res) => {
-            console.log('change task=>', res);
+            console.log("change task=>", res);
           })
           .catch(() => {});
       });
     },
+
     removeTask(sId, tasks, tId) {
-      let _tmpTask = '';
+      let _tmpTask = "";
 
       _tmpTask = tasks.filter((task) => task.id != tId);
       asanaService
-        .fetchTaskDelete(sId, _tmpTask)
+        .remove(sId, _tmpTask)
         .then((res) => {
-          console.log('change task =>', res);
+          console.log("change task =>", res);
         })
         .catch(() => {});
     },
@@ -305,5 +301,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import './assets/styles/index.scss';
+@import "./assets/styles/index.scss";
 </style>
