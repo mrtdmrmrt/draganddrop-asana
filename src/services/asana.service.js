@@ -1,121 +1,74 @@
-import { BASE_URL } from './api-base';
-import { responseHandler } from './helper';
+import { BASE_URL } from "./api-base";
+import { responseHandler, isNil } from "./helper";
+
 export const asanaService = {
-  fetchSectionList,
-  fetchSectionNameUpdate,
-  fetchSectionTaskUpdate,
-  fetchSectionAdd,
-  fetchSectionDelete,
-  fetchSectionTaskAdd,
-  fetchTaskNameUpdate,
-  fetchSectionTaskColorUpdate,
-  fetchTaskDelete,
+  addSection,
+  list,
+  remove,
+  update,
+  updateCaption,
 };
 
-async function fetchSectionList() {
-  const requestOptions = {
-    method: 'GET',
+async function fetchData({ method = "GET", payload = {}, uri = "sections" }) {
+  const options = {
+    method: method,
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+    body: JSON.stringify(payload),
   };
 
-  const request = await fetch(`${BASE_URL}/sections`, requestOptions);
-  return responseHandler(request);
-}
-async function fetchSectionNameUpdate(id, name) {
-  const requestOptions = {
-    method: 'PATCH',
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-    body: JSON.stringify({ name: name }),
-  };
+  if (method === "GET" || method === "DELETE") {
+    delete options.headers;
+    delete options.body;
+  }
 
-  const request = await fetch(`${BASE_URL}/sections/${id}`, requestOptions);
-  return responseHandler(request);
+  return responseHandler(await fetch(`${BASE_URL}/${uri}`, options));
 }
-async function fetchSectionTaskUpdate(id, tasks) {
-  const requestOptions = {
-    method: 'PATCH',
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-    body: JSON.stringify({
-      tasks: [...tasks],
-    }),
-  };
 
-  const request = await fetch(`${BASE_URL}/sections/${id}`, requestOptions);
-  return responseHandler(request);
+async function list() {
+  return await fetchData({ method: "GET" });
 }
-async function fetchSectionAdd(name) {
-  const requestOptions = {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-    body: JSON.stringify({
+
+async function updateCaption(id, name) {
+  if (isNil(name) || isNil(id))
+    throw new Error("You should pass params id and name");
+
+  return await fetchData({
+    method: "PATCH",
+    payload: { name: name },
+    uri: `sections/${id}`,
+  });
+}
+
+async function addSection(name) {
+  if (isNil(name) || typeof name !== "string")
+    throw new Error("You should pass the name");
+
+  return await fetchData({
+    method: "POST",
+    payload: {
       name: name,
       tasks: [],
-    }),
-  };
-  const request = await fetch(`${BASE_URL}/sections`, requestOptions);
-  return responseHandler(request);
-}
-async function fetchSectionDelete(id) {
-  const requestOptions = {
-    method: 'DELETE',
-  };
-  const request = await fetch(`${BASE_URL}/sections/${id}`, requestOptions);
-  return responseHandler(request);
-}
-async function fetchSectionTaskAdd(id, tasks) {
-  console.log(tasks);
-  const requestOptions = {
-    method: 'PATCH',
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
     },
-    body: JSON.stringify({
-      tasks: [...tasks],
-    }),
-  };
-  const request = await fetch(`${BASE_URL}/sections/${id}`, requestOptions);
-  return responseHandler(request);
+  });
 }
-async function fetchTaskNameUpdate(id, tasks) {
-  const requestOptions = {
-    method: 'PATCH',
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-    body: JSON.stringify({ tasks: [...tasks] }),
-  };
 
-  const request = await fetch(`${BASE_URL}/sections/${id}`, requestOptions);
-  return responseHandler(request);
+async function remove(id) {
+  return await fetchData({
+    method: "DELETE",
+    uri: `sections/${id}`,
+  });
 }
-async function fetchSectionTaskColorUpdate(id, tasks) {
-  console.log(tasks);
-  const requestOptions = {
-    method: 'PATCH',
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-    body: JSON.stringify({
-      tasks: [...tasks],
-    }),
-  };
-  const request = await fetch(`${BASE_URL}/sections/${id}`, requestOptions);
-  return responseHandler(request);
-}
-async function fetchTaskDelete(id, tasks) {
-  const requestOptions = {
-    method: 'PATCH',
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-    body: JSON.stringify({ tasks: [...tasks] }),
-  };
 
-  const request = await fetch(`${BASE_URL}/sections/${id}`, requestOptions);
-  return responseHandler(request);
+async function update(id, tasks) {
+  if (isNil(id) || isNil(tasks)) throw new Error("You should pass the params");
+
+  return await fetchData({
+    method: "PATCH",
+    payload: {
+      tasks: [...tasks],
+    },
+    uri: `sections/${id}`,
+  });
 }
